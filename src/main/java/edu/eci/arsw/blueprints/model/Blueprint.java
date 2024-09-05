@@ -36,11 +36,11 @@ public class Blueprint {
     public String getAuthor() {
         return author;
     }
-    
+
     public List<Point> getPoints() {
         return points;
     }
-    
+
     public void addPoint(Point p){
         this.points.add(p);
     }
