@@ -6,5 +6,6 @@ import java.util.Set;
 
 public interface BluePrinterFilter {
     public Blueprint filterBlueprint(Blueprint blueprint);
+
     public Set<Blueprint> filterBlueprints(Set<Blueprint> blueprints);
 }

@@ -5,22 +5,24 @@ import edu.eci.arsw.blueprints.model.Blueprint;
 import edu.eci.arsw.blueprints.model.Point;
 import org.springframework.stereotype.Service;
 
-import java.util.ArrayList;
-import java.util.HashSet;
-import java.util.List;
-import java.util.Set;
+import java.util.*;
 
 //@Service
 public class SubsamplingFilter implements BluePrinterFilter {
+
     @Override
     public Blueprint filterBlueprint(Blueprint blueprint){
         List<Point> newPointList = new ArrayList<>();
         List<Point> currentPointList = blueprint.getPoints();
 
-        for (int i = 0; i < currentPointList.size() - 1 ; i+=2 ){
+        for (int i = 0; i < currentPointList.size() - 1 ; i+=2){
             newPointList.add(currentPointList.get(i));
         }
-        return new Blueprint(blueprint.getAuthor(), blueprint.getName(), (Point[]) newPointList.toArray());
+
+        Point[] pointsArray = null;
+        pointsArray = newPointList.toArray(new Point[newPointList.size()]);
+
+        return new Blueprint(blueprint.getAuthor(), blueprint.getName(), pointsArray);
     }
 
     @Override

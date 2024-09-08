@@ -13,7 +13,8 @@ public class Main {
         ApplicationContext ac = new ClassPathXmlApplicationContext("applicationContext.xml");
         BlueprintsServices bs = ac.getBean(BlueprintsServices.class);
 
-        Point[] pts0=new Point[]{new Point(40, 40),new Point(15, 15)};
+        Point[] pts0=new Point[]{new Point(40, 40),new Point(15, 15), new Point(15, 15),
+                new Point(30, 30), new Point(30, 30), new Point(40, 40)};
         Blueprint bp0=new Blueprint("mack", "mypaint",pts0);
 
         Point[] pts=new Point[]{new Point(0, 0),new Point(10, 10)};
@@ -28,6 +29,9 @@ public class Main {
             bs.addNewBlueprint(bp1);
             System.out.println(bs.getBlueprintsByAuthor("john"));
             System.out.println(bs.getBlueprint("mack", "mypaint"));
+            for(Point i : bs.getBlueprint("mack", "mypaint").getPoints()){
+                System.out.println(i.toString());
+            }
         } catch (BlueprintPersistenceException | BlueprintNotFoundException e) {
             throw new RuntimeException(e);
         }

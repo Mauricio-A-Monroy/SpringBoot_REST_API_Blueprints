@@ -12,19 +12,37 @@ import java.util.Set;
 
 @Service
 public class RedundancyFilter implements BluePrinterFilter {
+
     @Override
     public Blueprint filterBlueprint(Blueprint blueprint){
         List<Point> newPointList = new ArrayList<>();
         List<Point> currentPointList = blueprint.getPoints();
 
-        for (int i = 0; i < currentPointList.size() - 1 ; i++ ){
-            Point p1 = currentPointList.get(i);
-            Point p2 = currentPointList.get(i+1);
-            if (p1.equals(p2)){
-                newPointList.add(p1);
+        // First element
+        if(currentPointList.get(0) != currentPointList.get(1)){
+            newPointList.add(currentPointList.get(0));
+        }
+
+        // Middle elements
+        for (int i = 1; i < currentPointList.size() - 1 ; i++ ){
+            Point p1 = currentPointList.get(i-1);
+            Point p2 = currentPointList.get(i);
+            Point p3 = currentPointList.get(i+1);
+
+            if (!p2.equals(p1) && !p2.equals(p3)){
+                newPointList.add(p2);
             }
         }
-       return new Blueprint(blueprint.getAuthor(), blueprint.getName(), (Point[]) newPointList.toArray());
+
+        // Last element
+        if(currentPointList.get(currentPointList.size() - 1) != currentPointList.get(currentPointList.size() - 2)){
+            newPointList.add(currentPointList.get(currentPointList.size() - 1));
+        }
+
+        Point[] pointsArray = null;
+        pointsArray = newPointList.toArray(new Point[newPointList.size()]);
+
+        return new Blueprint(blueprint.getAuthor(), blueprint.getName(), pointsArray);
     }
 
     @Override
